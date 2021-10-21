@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">app</string>
+    <string name="login">Login</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="registrar_cuenta">Registrar Cuenta</string>
+
+    <string name="invalid_mail"> Ingrese un mail válido</string>
+    <string name="invalid_password"> Ingrese una contraseña mayor a 6 dígitos</string>
+</resources>
