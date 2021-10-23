@@ -76,18 +76,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         LoginResponse loginResponse = response.body();
-
+                        JSONObject jsonObject = null;
                         if (response.code() == 400) {
-                                JSONObject jsonObject = null;
                                 try {
-                                    try {
-                                        jsonObject = new JSONObject(response.errorBody().string());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                                    jsonObject = new JSONObject(response.errorBody().string());
                                     String message = jsonObject.getString("msg");
                                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-                                }catch (JSONException e) {
+                                }catch (JSONException | IOException e) {
                                     e.printStackTrace();
                                 }
 
