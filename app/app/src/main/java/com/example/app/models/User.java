@@ -7,17 +7,13 @@ public class User {
     private int dni;
     private String email;
     private String password;
-    private int comission;
-    private int group;
 
-    public User(String name, String lastName, int dni, String email, String password, int comission, int group) {
+    public User(String name, String lastName, int dni, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;
         this.email = email;
         this.password = password;
-        this.comission = comission;
-        this.group = group;
     }
 
     public User() {
@@ -63,19 +59,4 @@ public class User {
         this.password = password;
     }
 
-    public int getComission() {
-        return comission;
-    }
-
-    public void setComission(int comission) {
-        this.comission = comission;
-    }
-
-    public int getGroup() {
-        return group;
-    }
-
-    public void setGroup(int group) {
-        this.group = group;
-    }
 }

@@ -17,6 +17,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.app.api.RetrofitClient;
 import com.example.app.interfaces.Asyncronable;
 import com.example.app.interfaces.Inputable;
+import com.example.app.models.RegisterResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
@@ -67,7 +69,7 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
                 final String pass = password.getText().toString();
                 final String nom = name.getText().toString();
                 final String lastn = lastName.getText().toString();
-                final int id = Integer.parseInt(String.valueOf(dni.getText()));
+                final int id = Integer.parseInt(dni.getText().toString());
 
                 if(mail.isEmpty()){
                     email.setError("Email es requerido");
@@ -93,45 +95,38 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
                     return;
                 }
 
-                if(id != 0 ){
+                if(dni.getText().toString().isEmpty() ){
                     dni.setError("DNI es requerido");
                     dni.requestFocus();
                     return;
                 }
 
-                Call<ResponseBody> call = RetrofitClient
+                Call<RegisterResponse> call = RetrofitClient
                         .getInstance()
                         .getApi()
                         .singUp("TEST",nom,lastn,id,mail,pass,3900,16);
 
-                call.enqueue(new Callback<ResponseBody>() {
+                call.enqueue(new Callback<RegisterResponse>() {
                     @Override
-                    public void onResponse(Call<"CLASE DE RESPUESTA"> call, Response<"CLASE DE RESPUESTA"> response) {
+                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
 
-                        "CLASE DE RESPUESTA" dr = response.body();
-
-                        if(response.code() == 201){
-                            // ACA HAY QUE ARMAR LA LOGICA DEL TOKEN ARMAR UN JSONOBJECTS  y parsearlo para obtener
-                            // token y token refresh
-                        }
-
-                        if (response.code() == 400){
-
+                        if(response.code() == 200){
+                            RegisterResponse rr = response.body();
+                            Toast.makeText(RegistrarActivity.this, rr.getMsg(), Toast.LENGTH_LONG).show();
+                        } else if ( response.code() == 400 ) {
+                            Toast.makeText(RegistrarActivity.this, "Error al crear el usuario", Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                        Toast.makeText(RegistrarActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
             }
         });
     }
-
-
-
 
 
     @Override

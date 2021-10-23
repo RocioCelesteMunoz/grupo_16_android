@@ -1,6 +1,7 @@
 package com.example.app.interfaces;
 
 import com.example.app.models.LoginResponse;
+import com.example.app.models.RegisterResponse;
 import com.example.app.models.User;
 
 import okhttp3.ResponseBody;
@@ -20,7 +21,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("register")
-    Call<ResponseBody> singUp(
+    Call<RegisterResponse> singUp(
             @Field("env") String env,
             @Field("name") String name,
             @Field("lastname") String lastname,
