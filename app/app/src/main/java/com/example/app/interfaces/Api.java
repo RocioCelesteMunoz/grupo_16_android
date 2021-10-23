@@ -28,7 +28,7 @@ public interface Api {
             @Field("dni") int dni,
             @Field("email") String email,
             @Field("password") String password,
-            @Field("comission") int comission,
+            @Field("commission") int comission,
             @Field("group") int group
     );
 
