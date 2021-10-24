@@ -2,6 +2,7 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,10 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.RegisterResponse;
 import com.example.app.models.User;
+import com.example.app.utils.Configuration;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Properties;
@@ -31,6 +32,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.app.utils.Configuration.generateRandomCode;
+
+
 public class RegistrarActivity extends AppCompatActivity {
 
     EditText email;
@@ -40,18 +44,14 @@ public class RegistrarActivity extends AppCompatActivity {
     EditText dni;
     Button registrar;
     User user;
+    String randomCode = "";
 
-    FirebaseAuth firebaseAuth;
-    AwesomeValidation awesomeValidation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
-
-        firebaseAuth = firebaseAuth.getInstance();
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -63,6 +63,10 @@ public class RegistrarActivity extends AppCompatActivity {
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final String emailOrigin = Configuration.VERIFICATION_EMAIL;
+                final String passwordOrigin = Configuration.VERIFICATION_PASSWORD;
+
                 final String mail = email.getText().toString();
                 final String pass = password.getText().toString();
                 final String nom = name.getText().toString();
@@ -114,10 +118,9 @@ public class RegistrarActivity extends AppCompatActivity {
 
                             RegisterResponse rr = response.body();
 
-                            final String email = "mailsoagrupo16@gmail.com";
-                            final String password = "prueba123";
+                            randomCode = generateRandomCode();
 
-                            String messageToSend = "Hola, el código de autenticación es: ";
+                            String messageToSend = "Hola, el código de autenticación es: " + randomCode;
 
                             Properties props = new Properties();
 
@@ -126,12 +129,25 @@ public class RegistrarActivity extends AppCompatActivity {
                             props.put("mail.smtp.host", "smtp.gmail.com");
                             props.put("mail.smtp.port", "587");
 
-                            /*Session session = Session.getInstance(props,new javax.mail.Authenticator(){
+                            Session session = Session.getInstance(props,new javax.mail.Authenticator(){
                                 @Override
                                 protected PasswordAuthentication getPasswordAuthentication() {
-                                    return super.getPasswordAuthentication(email, password);
+                                    return new PasswordAuthentication(emailOrigin, passwordOrigin);
                                 }
-                            });*/
+                            });
+
+                            try{
+                                Message message = new MimeMessage(session);
+                                message.setFrom(new InternetAddress(emailOrigin));
+                                message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+                                message.setSubject("Enviando Email");
+                                message.setText(messageToSend);
+                                Transport.send(message);
+                                Toast.makeText(getApplicationContext(),"Email enviado correctamente",Toast.LENGTH_LONG).show();
+
+                            }catch (MessagingException e){
+                                throw new RuntimeException(e);
+                            }
 
                             sendIntent(rr);
                             Toast.makeText(RegistrarActivity.this, rr.getMsg(), Toast.LENGTH_LONG).show();
@@ -149,6 +165,9 @@ public class RegistrarActivity extends AppCompatActivity {
 
             }
         });
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
 
@@ -173,6 +192,7 @@ public class RegistrarActivity extends AppCompatActivity {
             intent.putExtra("email",user.getEmail());
             intent.putExtra("token",token);
             intent.putExtra("tokenRefresh",tokenRefresh);
+            intent.putExtra("tokenRefresh",randomCode);
             startActivity(intent);
             finish();
         }

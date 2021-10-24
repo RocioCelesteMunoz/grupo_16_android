@@ -4,16 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.app.interfaces.Asyncronable;
-import com.example.app.models.RegisterResponse;
-import com.example.app.models.User;
-import com.example.app.services.EmailService;
-
-import org.json.JSONObject;
 
 import static com.example.app.utils.Configuration.generateRandomCode;
 
