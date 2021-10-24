@@ -24,6 +24,7 @@
         </activity>
 
         <activity android:name="com.example.app.RegistrarActivity"></activity>
+        <activity android:name="com.example.app.TwoFactorActivity"></activity>
         <activity android:name="com.example.app.HomeActivity"
             tools:ignore="Instantiatable"></activity>
     </application>
