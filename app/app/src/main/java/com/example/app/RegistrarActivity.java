@@ -2,39 +2,36 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.app.api.RetrofitClient;
-import com.example.app.interfaces.Asyncronable;
-import com.example.app.interfaces.Inputable;
 import com.example.app.models.RegisterResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.app.models.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 
-import org.json.JSONObject;
+import java.util.Properties;
 
-import java.io.IOException;
-import java.util.regex.Pattern;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrarActivity extends AppCompatActivity implements Asyncronable<JSONObject>, Inputable {
+public class RegistrarActivity extends AppCompatActivity {
 
     EditText email;
     EditText password;
@@ -42,6 +39,7 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
     EditText lastName;
     EditText dni;
     Button registrar;
+    User user;
 
     FirebaseAuth firebaseAuth;
     AwesomeValidation awesomeValidation;
@@ -101,6 +99,8 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
                     return;
                 }
 
+                user = new User(nom,lastn,id,mail,pass);
+
                 Call<RegisterResponse> call = RetrofitClient
                         .getInstance()
                         .getApi()
@@ -111,8 +111,31 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
                     public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
 
                         if(response.code() == 200){
+
                             RegisterResponse rr = response.body();
+
+                            final String email = "mailsoagrupo16@gmail.com";
+                            final String password = "prueba123";
+
+                            String messageToSend = "Hola, el código de autenticación es: ";
+
+                            Properties props = new Properties();
+
+                            props.put("mail.smtp.auth", "true");
+                            props.put("mail.smtp.starttls.enable", "true");
+                            props.put("mail.smtp.host", "smtp.gmail.com");
+                            props.put("mail.smtp.port", "587");
+
+                            /*Session session = Session.getInstance(props,new javax.mail.Authenticator(){
+                                @Override
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return super.getPasswordAuthentication(email, password);
+                                }
+                            });*/
+
+                            sendIntent(rr);
                             Toast.makeText(RegistrarActivity.this, rr.getMsg(), Toast.LENGTH_LONG).show();
+
                         } else if ( response.code() == 400 ) {
                             Toast.makeText(RegistrarActivity.this, "Error al crear el usuario", Toast.LENGTH_LONG).show();
                         }
@@ -129,23 +152,31 @@ public class RegistrarActivity extends AppCompatActivity implements Asyncronable
     }
 
 
-    @Override
-    public void showProgress(String msg) {
+    public void sendIntent(RegisterResponse response) {
 
+        String msg = getString(R.string.credentialsError);
+        boolean success;
+        String token = "";
+        String tokenRefresh = "";
+
+        if(response == null) {
+            Toast.makeText(RegistrarActivity.this, "Error al intentar registrar al usuario", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        success = response.isErr();
+        token = response.getToken();
+        tokenRefresh = response.getTokenRefresh();
+
+        if(success){
+            Intent intent = new Intent(RegistrarActivity.this, TwoFactorActivity.class);
+            intent.putExtra("email",user.getEmail());
+            intent.putExtra("token",token);
+            intent.putExtra("tokenRefresh",tokenRefresh);
+            startActivity(intent);
+            finish();
+        }
     }
 
-    @Override
-    public void hideProgress() {
 
-    }
-
-    @Override
-    public void afterRequest(JSONObject response) {
-
-    }
-
-    @Override
-    public void addInputChangedListeners() {
-
-    }
 }
