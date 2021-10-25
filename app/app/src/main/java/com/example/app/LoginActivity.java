@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         String tokenRefresh = "";
 
         if(response == null) {
-            Toast.makeText(LoginActivity.this, "Error al intentar registrar al usuario", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Error al intentar logear al usuario", Toast.LENGTH_LONG).show();
             return;
         }
 
