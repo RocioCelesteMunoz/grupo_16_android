@@ -119,38 +119,6 @@ public class RegistrarActivity extends AppCompatActivity {
 
                             RegisterResponse rr = response.body();
 
-                           /* randomCode = generateRandomCode();
-
-                            String messageToSend = "Hola, el código de autenticación es: " + randomCode;
-
-                            Properties props = new Properties();
-
-                            props.put("mail.smtp.auth", "true");
-                            props.put("mail.smtp.starttls.enable", "true");
-                            props.put("mail.smtp.host", "smtp.gmail.com");
-                            props.put("mail.smtp.port", "587");
-
-                            Session session = Session.getInstance(props,new javax.mail.Authenticator(){
-                                @Override
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(emailOrigin, passwordOrigin);
-                                }
-                            });
-
-                            try{
-                                Message message = new MimeMessage(session);
-                                message.setFrom(new InternetAddress(emailOrigin));
-                                message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-                                message.setSubject("Enviando Email");
-                                message.setText(messageToSend);
-                                Transport.send(message);
-                                Toast.makeText(getApplicationContext(),"Email enviado correctamente",Toast.LENGTH_LONG).show();
-
-                            }catch (MessagingException e){
-                                throw new RuntimeException(e);
-                            }*/
-
-
                             randomCode = _mailService.sendEmail(mail, RegistrarActivity.this);
                             sendIntent(rr);
                             Toast.makeText(RegistrarActivity.this, rr.getMsg(), Toast.LENGTH_LONG).show();

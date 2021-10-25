@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.LoginResponse;
+import com.example.app.models.RegisterResponse;
 import com.example.app.services.EmailService;
 
 import org.json.JSONException;
@@ -90,11 +91,14 @@ public class LoginActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
 
-                            }else{
-                            if(loginResponse.isSuccess())
+                            }else if(loginResponse.isSuccess()) {
 
-                                Toast.makeText(LoginActivity.this,loginResponse.getMsg(),Toast.LENGTH_LONG).show();
+                                LoginResponse rr = response.body();
+                                randomCode = _mailService.sendEmail(txtUser.getText().toString(), LoginActivity.this);
+                                sendIntent(rr);
+                                Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
                             }
+
                     }
 
                     @Override
@@ -106,6 +110,33 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void sendIntent(LoginResponse response) {
+
+        String msg = getString(R.string.credentialsError);
+        boolean success;
+        String token = "";
+        String tokenRefresh = "";
+
+        if(response == null) {
+            Toast.makeText(LoginActivity.this, "Error al intentar registrar al usuario", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        success = response.isSuccess();
+        token = response.getToken();
+        tokenRefresh = response.getToken_refresh();
+
+        if(success){
+            Intent intent = new Intent(LoginActivity.this, TwoFactorActivity.class);
+            intent.putExtra("email",txtUser.getText().toString());
+            intent.putExtra("token",token);
+            intent.putExtra("tokenRefresh",tokenRefresh);
+            intent.putExtra("tokenRefresh",randomCode);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }
