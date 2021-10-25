@@ -3,6 +3,7 @@ package com.example.app.services;
 import static com.example.app.utils.Configuration.generateRandomCode;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class EmailService extends AppCompatActivity {
     final String emailOrigin = Configuration.VERIFICATION_EMAIL;
     final String passwordOrigin = Configuration.VERIFICATION_PASSWORD;
 
-public String sendEmail(String mailTo, Activity activity){
+public String sendEmail (String mailTo, Activity activity){
     randomCode = generateRandomCode();
 
     String messageToSend = "Hola, el código de autenticación es: " + randomCode;
@@ -53,7 +54,20 @@ public String sendEmail(String mailTo, Activity activity){
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailTo));
         message.setSubject("Enviando Email");
         message.setText(messageToSend);
-        Transport.send(message);
+        //Transport.send(message);
+
+        //leer sobre NetworkOnMainThreadException.
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Transport.send(message);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         Toast.makeText(activity,"Email enviado correctamente",Toast.LENGTH_LONG).show();
 
 
