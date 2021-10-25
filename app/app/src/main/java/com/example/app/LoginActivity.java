@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.LoginResponse;
+import com.example.app.services.EmailService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtUser;
     EditText txtPasswordLogin;
     EditText textError;
+
+    String randomCode = "";
+    EmailService _mailService = new EmailService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             }else{
                             if(loginResponse.isSuccess())
+
                                 Toast.makeText(LoginActivity.this,loginResponse.getMsg(),Toast.LENGTH_LONG).show();
                             }
                     }

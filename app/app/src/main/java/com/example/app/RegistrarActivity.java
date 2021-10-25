@@ -14,6 +14,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.RegisterResponse;
 import com.example.app.models.User;
+import com.example.app.services.EmailService;
 import com.example.app.utils.Configuration;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -45,7 +46,7 @@ public class RegistrarActivity extends AppCompatActivity {
     Button registrar;
     User user;
     String randomCode = "";
-
+    EmailService _mailService = new EmailService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
                             RegisterResponse rr = response.body();
 
-                            randomCode = generateRandomCode();
+                           /* randomCode = generateRandomCode();
 
                             String messageToSend = "Hola, el código de autenticación es: " + randomCode;
 
@@ -147,8 +148,10 @@ public class RegistrarActivity extends AppCompatActivity {
 
                             }catch (MessagingException e){
                                 throw new RuntimeException(e);
-                            }
+                            }*/
 
+
+                            randomCode = _mailService.sendEmail(mail, RegistrarActivity.this);
                             sendIntent(rr);
                             Toast.makeText(RegistrarActivity.this, rr.getMsg(), Toast.LENGTH_LONG).show();
 
