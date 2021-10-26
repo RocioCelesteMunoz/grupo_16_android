@@ -1,17 +1,26 @@
 package com.example.app.models;
 
 import com.example.app.models.Credential;
+import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
+    @SerializedName("success")
     private Boolean success;
+    @SerializedName("msg")
     private String msg;
-    private Credential credential;
+    //private Credential credential;
+    @SerializedName("token")
+    private String token;
+    @SerializedName("token_refresh")
+    private String token_refresh;
 
-    public LoginResponse(Boolean success, String msg, Credential credential) {
+    public LoginResponse(Boolean success, String msg,String token, String token_refresh) {
         this.success = success;
+        this.token = token;
+        this.token_refresh = token_refresh;
         this.msg = msg;
-        this.credential = credential;
+       // this.credential = credential;
     }
 
     public Boolean isSuccess() {
@@ -30,11 +39,19 @@ public class LoginResponse {
         this.msg = msg;
     }
 
-    public Credential getCredential() {
+    public String getToken(){return token;}
+
+    public void setToken(String token){this.token = token;}
+
+    public String getToken_refresh(){return token_refresh;}
+
+    public void setToken_refresh(String token_refresh){this.token_refresh = token_refresh;}
+
+   /* public Credential getCredential() {
         return credential;
     }
 
     public void setCredential(Credential credential) {
         this.credential = credential;
-    }
+    }*/
 }
