@@ -65,9 +65,6 @@ public class RegistrarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String emailOrigin = Configuration.VERIFICATION_EMAIL;
-                final String passwordOrigin = Configuration.VERIFICATION_PASSWORD;
-
                 final String mail = email.getText().toString();
                 final String pass = password.getText().toString();
                 final String nom = name.getText().toString();
@@ -160,10 +157,10 @@ public class RegistrarActivity extends AppCompatActivity {
 
         if(success){
             Intent intent = new Intent(RegistrarActivity.this, TwoFactorActivity.class);
-            intent.putExtra("email",user.getEmail());
-            intent.putExtra("token",token);
-            intent.putExtra("tokenRefresh",tokenRefresh);
-            intent.putExtra("tokenRefresh",randomCode);
+            intent.putExtra("email", user.getEmail());
+            intent.putExtra("token", token);
+            intent.putExtra("tokenRefresh", tokenRefresh);
+            intent.putExtra("tokenAccess", randomCode);
             startActivity(intent);
             finish();
         }

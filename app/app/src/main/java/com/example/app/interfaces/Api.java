@@ -2,9 +2,7 @@ package com.example.app.interfaces;
 
 import com.example.app.models.LoginResponse;
 import com.example.app.models.RegisterResponse;
-import com.example.app.models.User;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -31,7 +29,6 @@ public interface Api {
             @Field("commission") int comission,
             @Field("group") int group
     );
-
 
 
 }

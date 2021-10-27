@@ -26,6 +26,7 @@ public class RetrofitClient {
                             public Response intercept(Chain chain) throws IOException {
                                 Request original = chain.request();
 
+
                                 Request.Builder requestBuilder = original.newBuilder()
                                         .addHeader("Content-Type", "application/json")
                                         .method(original.method(), original.body());
