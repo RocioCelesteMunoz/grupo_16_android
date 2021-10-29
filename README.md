@@ -1,6 +1,6 @@
 # grupo_16_android
 
-usuario registrado en prod para pruebas:
+usuario registrado en prod para pruebas(credenciales tanto para la app como para el mail):
 
-user: rocio.c.munoz@outlook.com
-password: rocio1996
+user: soagrupo16@hotmail.com
+password: g16soa2021
