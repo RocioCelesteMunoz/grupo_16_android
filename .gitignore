@@ -24,8 +24,11 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/app/build/**
+app/.idea/**
 app/.idea/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/bin/gradle
 app/.idea/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/init.d/readme.txt
 app/.idea/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/LICENSE
 app/.idea/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/README
 app/.idea/wrapper/dists/gradle-7.0.2-bin/857tjihv64xamwrf0h14cai3r/gradle-7.0.2/NOTICE
+app/.idea/misc.xml

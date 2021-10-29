@@ -1,6 +1,4 @@
 package com.example.app.models;
-
-import com.example.app.models.Credential;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {

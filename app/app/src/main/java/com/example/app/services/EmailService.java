@@ -1,18 +1,8 @@
 package com.example.app.services;
-
-import static com.example.app.utils.Configuration.generateRandomCode;
-
 import android.app.Activity;
-import android.os.AsyncTask;
-import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.app.utils.Configuration;
-
 import java.util.Properties;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -20,7 +10,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import com.example.app.utils.Configuration;
+import static com.example.app.utils.Configuration.generateRandomCode;
 
 public class EmailService extends AppCompatActivity {
 

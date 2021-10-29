@@ -104,7 +104,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 user = new User(nom,lastn,id,mail,pass);
 
                 Call<RegisterResponse> call = RetrofitClient
-                        .getInstance()
+                        .getInstance(getApplicationContext())
                         .getApi()
                         .singUp("TEST",nom,lastn,id,mail,pass,3900,16);
 
@@ -137,7 +137,6 @@ public class RegistrarActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
-
 
     public void sendIntent(RegisterResponse response) {
 

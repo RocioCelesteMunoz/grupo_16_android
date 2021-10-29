@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.api.RetrofitClient;
 import com.example.app.services.EmailService;
+import com.example.app.utils.SessionManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +27,7 @@ public class TwoFactorActivity extends AppCompatActivity {
     String randomCode = "";
 
     EmailService _mailService = new EmailService();
-
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,7 +38,8 @@ public class TwoFactorActivity extends AppCompatActivity {
         buttonReenviar = findViewById(R.id.buttonReenviar);
         txtAuth = findViewById(R.id.txtAuth);
 
-
+        session = new SessionManager(getApplicationContext());
+        String tokenTes = session.getStringData("TOKEN");
         Intent i = getIntent();
 
         /** Parémetros que recibo de la activity login/register **/

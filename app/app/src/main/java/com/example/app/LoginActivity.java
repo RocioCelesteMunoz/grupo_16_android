@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.LoginResponse;
-import com.example.app.models.RegisterResponse;
 import com.example.app.services.EmailService;
+import com.example.app.utils.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,20 +33,20 @@ public class LoginActivity extends AppCompatActivity {
 
     String randomCode = "";
     EmailService _mailService = new EmailService();
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        session = new SessionManager(getApplicationContext());
         txtUser = findViewById(R.id.txtUser);
         txtPasswordLogin = findViewById(R.id.txtPasswordLogin);
         textError = findViewById(R.id.textError);
 
         btnToRegister = findViewById(R.id.button_registrar);
         btnLogin = findViewById(R.id.button_login);
-
         btnToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,30 +75,27 @@ public class LoginActivity extends AppCompatActivity {
 
                 textError.setText("");
 
-                Call<LoginResponse> call = RetrofitClient.getInstance().getApi().userLogin(usuario,password);
+                Call<LoginResponse> call = RetrofitClient.getInstance(getApplicationContext()).getApi().userLogin(usuario,password);
 
                 call.enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         LoginResponse loginResponse = response.body();
-                        JSONObject jsonObject = null;
-                        if (response.code() == 400) {
-                                try {
-                                    jsonObject = new JSONObject(response.errorBody().string());
-                                    String message = jsonObject.getString("msg");
-                                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-                                }catch (JSONException | IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }else if(loginResponse.isSuccess()) {
-
-                                LoginResponse rr = response.body();
-                                randomCode = _mailService.sendEmail(txtUser.getText().toString(), LoginActivity.this);
-                                sendIntent(rr);
-                                Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
+                        if (response.isSuccessful()) {
+                            LoginResponse resp = response.body();
+                            randomCode = _mailService.sendEmail(txtUser.getText().toString(), LoginActivity.this);
+                            redirectToTwoFactorAuth(resp);
+                            Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
+                        } else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                String message = jsonObject.getString("msg");
+                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+//                              Por error de credenciales pasa por acá
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
                             }
-
+                        }
                     }
 
                     @Override
@@ -112,31 +109,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void sendIntent(LoginResponse response) {
-
-        String msg = getString(R.string.credentialsError);
-        boolean success;
-        String token = "";
-        String tokenRefresh = "";
-
-        if(response == null) {
-            Toast.makeText(LoginActivity.this, "Error al intentar logear al usuario", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        success = response.isSuccess();
-        token = response.getToken();
-        tokenRefresh = response.getToken_refresh();
-
-        if(success){
-            Intent intent = new Intent(LoginActivity.this, TwoFactorActivity.class);
-            intent.putExtra("email",txtUser.getText().toString());
-            intent.putExtra("token",token);
-            intent.putExtra("tokenRefresh",tokenRefresh);
-            intent.putExtra("tokenRefresh",randomCode);
-            startActivity(intent);
-            finish();
-        }
+    public void redirectToTwoFactorAuth(LoginResponse response) {
+        String token = response.getToken();
+        String tokenRefresh = response.getToken_refresh();
+        session.saveStringData("TOKEN", token);
+        session.saveStringData("TOKEN_REFRESH", tokenRefresh);
+        Intent intent = new Intent(LoginActivity.this, TwoFactorActivity.class);
+        intent.putExtra("email",txtUser.getText().toString());
+        intent.putExtra("token",token);
+        intent.putExtra("tokenRefresh",tokenRefresh);
+        intent.putExtra("tokenRefresh",randomCode);
+        startActivity(intent);
+        finish();
     }
-
 }

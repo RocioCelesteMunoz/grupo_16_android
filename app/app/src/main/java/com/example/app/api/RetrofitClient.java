@@ -1,6 +1,8 @@
 package com.example.app.api;
+import android.content.Context;
 
 import com.example.app.interfaces.Api;
+import com.example.app.utils.SessionManager;
 
 import java.io.IOException;
 
@@ -16,9 +18,9 @@ public class RetrofitClient {
     private static final String BASE_URL = "http://so-unlam.net.ar/api/api/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
-
-
-    private RetrofitClient() {
+    SessionManager session;
+    private RetrofitClient(Context context) {
+        session = new SessionManager(context);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(
                         new Interceptor() {
@@ -26,10 +28,13 @@ public class RetrofitClient {
                             public Response intercept(Chain chain) throws IOException {
                                 Request original = chain.request();
 
-
                                 Request.Builder requestBuilder = original.newBuilder()
-                                        .addHeader("Content-Type", "application/json")
-                                        .method(original.method(), original.body());
+                                        .addHeader("Content-Type", "application/json");
+
+                                if (!session.getStringData("TOKEN").isEmpty() & !original.url().toString().endsWith("login") & !original.url().toString().endsWith("login")) {
+                                    requestBuilder.addHeader("Authorization", "Bearer " + session.getStringData("TOKEN"));
+                                }
+                                requestBuilder.method(original.method(), original.body());
 
                                 Request request = requestBuilder.build();
                                 return chain.proceed(request);
@@ -44,9 +49,9 @@ public class RetrofitClient {
                 .build();
     }
 
-    public static synchronized RetrofitClient getInstance() {
+    public static synchronized RetrofitClient getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new RetrofitClient();
+            mInstance = new RetrofitClient(context);
         }
         return mInstance;
     }
