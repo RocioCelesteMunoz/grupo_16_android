@@ -2,6 +2,7 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.api.RetrofitClient;
+import com.example.app.models.EventRegisterResponse;
 import com.example.app.models.LoginResponse;
+import com.example.app.models.RefreshTokenResponse;
 import com.example.app.services.EmailService;
 import com.example.app.utils.SessionManager;
 
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     EmailService _mailService = new EmailService();
     SessionManager session;
 
+    final Integer TokenExpiration = 1000 * 60 * 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,6 +56,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this,RegistrarActivity.class);
                 startActivity(i);
+                try {
+                    Response<EventRegisterResponse> resp = RetrofitClient.getInstance(getApplicationContext()).getApi().registerEvent("PROD", "SENSOR", "DESCRIPTION").execute();
+                    EventRegisterResponse a = resp.body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -84,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             LoginResponse resp = response.body();
                             randomCode = _mailService.sendEmail(txtUser.getText().toString(), LoginActivity.this);
+                            setRefreshTime();
                             redirectToTwoFactorAuth(resp);
                             Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
                         } else {
@@ -103,8 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-
-
             }
         });
     }
@@ -121,5 +130,35 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("tokenRefresh",randomCode);
         startActivity(intent);
         finish();
+    }
+
+    public void setRefreshTime() {
+        Integer intervalo = TokenExpiration;
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+                refreshToken();
+            }
+        };
+        handler.postAtTime(runnable, System.currentTimeMillis()+intervalo);
+        handler.postDelayed(runnable, intervalo);
+    }
+
+    public void refreshToken() {
+        Call<RefreshTokenResponse> call = RetrofitClient.getInstance(getApplicationContext()).getApi().refreshToken();
+
+        call.enqueue(new Callback<RefreshTokenResponse>() {
+            @Override
+            public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
+                if (response.isSuccessful()) {
+                    session.saveStringData("TOKEN", response.body().getToken());
+                    session.saveStringData("TOKEN_REFRESH", response.body().getToken_refresh());
+                }
+            }
+            @Override
+            public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

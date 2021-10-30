@@ -69,5 +69,4 @@ public String sendEmail (String mailTo, Activity activity){
     return randomCode;
 
 }
-
 }
