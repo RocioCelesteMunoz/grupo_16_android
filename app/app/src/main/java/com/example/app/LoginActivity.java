@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         };
         handler.postAtTime(runnable, System.currentTimeMillis()+intervalo);
         handler.postDelayed(runnable, intervalo);
+        this.setRefreshTime();
     }
 
     public void refreshToken() {
