@@ -1,6 +1,9 @@
 package com.example.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -54,6 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         btnToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!isConnectToInternet()) {
+                    Toast.makeText(LoginActivity.this, "No hay conexión de internet.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Intent i = new Intent(LoginActivity.this,RegistrarActivity.class);
                 startActivity(i);
                 try {
@@ -68,6 +76,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isConnectToInternet()) {
+                    Toast.makeText(LoginActivity.this, "No hay conexión de internet.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 final String usuario = txtUser.getText().toString();
                 final String password = txtPasswordLogin.getText().toString();
 
@@ -146,6 +159,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void refreshToken() {
+
+
         Call<RefreshTokenResponse> call = RetrofitClient.getInstance(getApplicationContext()).getApi().refreshToken();
 
         call.enqueue(new Callback<RefreshTokenResponse>() {
@@ -163,4 +178,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isConnectToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
