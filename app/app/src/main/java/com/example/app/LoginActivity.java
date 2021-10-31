@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("email",txtUser.getText().toString());
         intent.putExtra("token",token);
         intent.putExtra("tokenRefresh",tokenRefresh);
-        intent.putExtra("tokenRefresh",randomCode);
+        intent.putExtra("tokenAccess",randomCode);
         startActivity(intent);
         finish();
     }
