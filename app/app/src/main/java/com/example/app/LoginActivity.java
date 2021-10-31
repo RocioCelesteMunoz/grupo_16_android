@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         };
         handler.postAtTime(runnable, System.currentTimeMillis()+intervalo);
         handler.postDelayed(runnable, intervalo);
-        this.setRefreshTime();
+
     }
 
     public void refreshToken() {
@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     session.saveStringData("TOKEN", response.body().getToken());
                     session.saveStringData("TOKEN_REFRESH", response.body().getToken_refresh());
+                    setRefreshTime();
                 }
             }
             @Override
