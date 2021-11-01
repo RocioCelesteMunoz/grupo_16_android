@@ -2,7 +2,6 @@ package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,12 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app.api.RetrofitClient;
 import com.example.app.services.EmailService;
+import com.example.app.utils.SessionManager;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class TwoFactorActivity extends AppCompatActivity {
 
@@ -26,7 +22,7 @@ public class TwoFactorActivity extends AppCompatActivity {
     String randomCode = "";
 
     EmailService _mailService = new EmailService();
-
+    SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,7 +33,8 @@ public class TwoFactorActivity extends AppCompatActivity {
         buttonReenviar = findViewById(R.id.buttonReenviar);
         txtAuth = findViewById(R.id.txtAuth);
 
-
+        session = new SessionManager(getApplicationContext());
+        String tokenTes = session.getStringData("TOKEN");
         Intent i = getIntent();
 
         /** Parémetros que recibo de la activity login/register **/

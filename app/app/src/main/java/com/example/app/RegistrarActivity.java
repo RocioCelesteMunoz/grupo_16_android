@@ -1,6 +1,9 @@
 package com.example.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -10,30 +13,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.example.app.api.RetrofitClient;
 import com.example.app.models.RegisterResponse;
 import com.example.app.models.User;
 import com.example.app.services.EmailService;
-import com.example.app.utils.Configuration;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.example.app.utils.Configuration.generateRandomCode;
 
 
 public class RegistrarActivity extends AppCompatActivity {
@@ -64,6 +52,11 @@ public class RegistrarActivity extends AppCompatActivity {
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!isConnectToInternet()) {
+                    Toast.makeText(RegistrarActivity.this, "No hay conexión de internet.", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 final String mail = email.getText().toString();
                 final String pass = password.getText().toString();
@@ -104,7 +97,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 user = new User(nom,lastn,id,mail,pass);
 
                 Call<RegisterResponse> call = RetrofitClient
-                        .getInstance()
+                        .getInstance(getApplicationContext())
                         .getApi()
                         .singUp("TEST",nom,lastn,id,mail,pass,3900,16);
 
@@ -138,7 +131,6 @@ public class RegistrarActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
     }
 
-
     public void sendIntent(RegisterResponse response) {
 
         String msg = getString(R.string.credentialsError);
@@ -163,6 +155,17 @@ public class RegistrarActivity extends AppCompatActivity {
             intent.putExtra("tokenAccess", randomCode);
             startActivity(intent);
             finish();
+        }
+    }
+
+    private boolean isConnectToInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
