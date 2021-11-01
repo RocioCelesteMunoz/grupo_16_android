@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
+
+    ImageView btnUser;
+    ImageView btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +22,18 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         checkBattery();
+
+        btnExit = findViewById(R.id.btnExit);
+        
+
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     private void checkBattery() {
@@ -27,5 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         int percentage = level * 100 / scale;
 
         Toast.makeText(this, "El nivel de bateria es del " + percentage + "%.", Toast.LENGTH_SHORT).show();
+
+
     }
 }

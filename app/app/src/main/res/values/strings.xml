@@ -16,9 +16,17 @@
     <string name="reenviar">Reenviar</string>
     <string name="aceptar">Aceptar</string>
     <string name="lblEnvioMail">Se ha enviado un código de autenticacion al mail registrado</string>
+    <string name="lblInfoHome">¡Hola! MBooking es una app para que puedas pre-ordenar tu comida para llevar y seleccionar cupones de promoción.  </string>
 
     <string name="credentialsError">El usuario o contraseña ingresado es incorrecto.</string>
     <string name="requestError">Se produjo un error al enviar la petición</string>
+
+    <string name="cupones">Cupones de decuento</string>
+    <string name="comida">Menú</string>
+    <string name="reserva">Realiza tu reserva</string>
+
+    <string name="lblDescription">Desde esta pantalla podrás ver tus datos personales</string>
+
 
 
 </resources>
