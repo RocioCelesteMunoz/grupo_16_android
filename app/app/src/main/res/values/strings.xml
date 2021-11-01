@@ -22,10 +22,20 @@
     <string name="requestError">Se produjo un error al enviar la petición</string>
 
     <string name="cupones">Cupones de decuento</string>
-    <string name="comida">Menú</string>
+    <string name="comida">Nuestro Menú</string>
     <string name="reserva">Realiza tu reserva</string>
 
     <string name="lblDescription">Desde esta pantalla podrás ver tus datos personales</string>
+    <string name="lblMenu">Nuestro Menú</string>
+
+    <string name="TwoForOne">Utilizando el siguiente código de descuento llevas 2 menús y pagas 1 solo.</string>
+    <string name="cod2x1">Tu codigo es:</string>
+
+    <string name="desc_20">Utilizando el siguiente código de descuento obtenes un 20% de descuento. (Para compras mayores a $2500) </string>
+
+    <string name="bodyRetiro"><![CDATA[ Si tu menú no esta listo para retirar posterior a 30\' del pedido, te llevas una Coca Cola de 2 &#188; Lts.]]></string>
+    <string name="solicitar_caja"> (*)Es necesario que al momento de solicitar la promo, muestres tu celu con la hora de solicitud.</string>
+
 
 
 

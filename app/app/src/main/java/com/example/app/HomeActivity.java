@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -12,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ImageView btnUser;
     ImageView btnExit;
+    Button btnDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,21 @@ public class HomeActivity extends AppCompatActivity {
         checkBattery();
 
         btnExit = findViewById(R.id.btnExit);
+        btnDesc = findViewById(R.id.btnDesc);
         
 
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, DescActivity.class);
                 startActivity(i);
             }
         });
