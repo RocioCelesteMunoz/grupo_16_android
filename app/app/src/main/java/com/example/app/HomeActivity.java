@@ -15,6 +15,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView btnExit;
     Button btnDesc;
+    Button btnMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
         btnExit = findViewById(R.id.btnExit);
         btnDesc = findViewById(R.id.btnDesc);
+        btnMenu = findViewById(R.id.btnMenu);
         
 
         btnExit.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +42,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, DescActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, MenuActivity.class);
                 startActivity(i);
             }
         });
