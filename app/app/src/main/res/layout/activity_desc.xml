@@ -76,14 +76,22 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="145dp"
-                android:layout_height="134dp"
+                android:layout_width="134dp"
+                android:layout_height="127dp"
                 app:srcCompat="@drawable/descuento_20" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/body20"
+                    android:layout_width="192dp"
+                    android:layout_height="80dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/desc_20"
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,13 +114,6 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/body20"
-                    android:layout_width="192dp"
-                    android:layout_height="80dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/desc_20"
-                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -201,16 +202,18 @@
 
             <ImageView
                 android:id="@+id/img2x1"
-                android:layout_width="148dp"
-                android:layout_height="match_parent"
+                android:layout_width="133dp"
+                android:layout_height="119dp"
                 android:gravity="center_horizontal"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/offer2x1"
                 tools:ignore="ImageContrastCheck" />
 
             <ImageView
                 android:id="@+id/imageView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="133dp"
+                android:layout_height="119dp"
+                android:layout_gravity="center"
                 android:layout_weight="1" />
 
             <LinearLayout

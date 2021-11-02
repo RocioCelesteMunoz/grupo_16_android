@@ -36,7 +36,26 @@
     <string name="bodyRetiro"><![CDATA[ Si tu menú no esta listo para retirar posterior a 30\' del pedido, te llevas una Coca Cola de 2 &#188; Lts.]]></string>
     <string name="solicitar_caja"> (*)Es necesario que al momento de solicitar la promo, muestres tu celu con la hora de solicitud.</string>
 
+    <string name="titl_hamburguesa"> Hamburguesa Cheese 780.-</string>
+    <string name="body_hamburguesa"> Doble carne (180 grs de carne por medallón), doble cheddar, cebolla crispy. Con porción de papas y Coca Cola de 750ml.</string>
 
+    <string name="titl_hamburguesa_simple"> Hamburguesa Classic - $580.-</string>
+    <string name="body_hamburguesa_simple"> Carne (180 grs de carne), doble cheddar, tomate, lechuga. Con porción de papas y Coca Cola de 750ml.</string>
+
+    <string name="tlt_tabla_uno"> Tabla Mediterranea - $1200.-</string>
+    <string name="body_tabla_uno"> Bastones de queso, Aros de cebolla, mini salchicha, papas fritas, aceitunas, bolas de papa (Comen 2).</string>
+
+    <string name="tlt_tabla_dos"> Tabla tradicional - 2400.-.</string>
+    <string name="body_tabla_dos"> Jamón cocido, Jamón crudo, queso brie, queso cheddar, queso mar del plata, roquefort, aceitunas, longanisa (Comen 4).</string>
+
+    <string name="tlt_pizza_uno"> Muzzarella - 850.-.</string>
+    <string name="body_pizza_uno"> Pizza grande de Muzzarella. (8 Porciones) </string>
+
+    <string name="tlt_pizza_dos"> Jamón y morrón - 1200.-.</string>
+    <string name="body_pizza_dos"> Pizza grande de Muzzarella con Jamón y morrón. (8 Porciones) </string>
+
+    <string name="tlt_pizza_tres"> Napolitana con Jamón - 1600.-</string>
+    <string name="body_pizza_tres"> Pizza grande de Muzzarella con Albahaca, tomate fresco, Jamón, ajo y orégano. (8 Porciones) </string>
 
 
 </resources>
