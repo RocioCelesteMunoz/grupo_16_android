@@ -11,7 +11,7 @@
 
     <string name="invalid_mail"> Ingrese un mail válido</string>
     <string name="invalid_password"> Ingrese una contraseña mayor a 6 dígitos</string>
-    <string name="lblResendVerificationCode">En caso de no haber recibido \nel código haga click en reenviar</string>
+    <string name="lblResendVerificationCode">En caso de no haber recibido \nel código haga click en reenviar o mueva el telefono de un lado a otro</string>
     <string name="ingresar_c_digo">Ingresar Código</string>
     <string name="reenviar">Reenviar</string>
     <string name="aceptar">Aceptar</string>
