@@ -108,16 +108,18 @@ public class TwoFactorActivity extends AppCompatActivity implements SensorEventL
 
     }
 
-    public void inicializarMenus(){
+    public void inicializarMenus() {
 
-        menus.put(COMBO_UNO, new Menu(1,"Hamburguesa Cheese", 780));
-        menus.put(COMBO_DOS, new Menu(2,"Hamburguesa Classic", 580));
-        menus.put(COMBO_TRES, new Menu(3,"Tabla Mediterranea", 1200));
-        menus.put(COMBO_CUATRO, new Menu(4,"Tabla Tradicional", 2400));
-        menus.put(COMBO_CINCO, new Menu(5,"Pizza Muzzarella", 850));
-        menus.put(COMBO_SEIS, new Menu(6,"Pizza Jamón y Morrón", 1200));
-        menus.put(COMBO_SIETE, new Menu(7,"Pizza Napolitana con Jamón", 1600));
+        menus.put(COMBO_UNO, new Menu(1, "Hamburguesa Cheese", 780));
+        menus.put(COMBO_DOS, new Menu(2, "Hamburguesa Classic", 580));
+        menus.put(COMBO_TRES, new Menu(3, "Tabla Mediterranea", 1200));
+        menus.put(COMBO_CUATRO, new Menu(4, "Tabla Tradicional", 2400));
+        menus.put(COMBO_CINCO, new Menu(5, "Pizza Muzzarella", 850));
+        menus.put(COMBO_SEIS, new Menu(6, "Pizza Jamón y Morrón", 1200));
+        menus.put(COMBO_SIETE, new Menu(7, "Pizza Napolitana con Jamón", 1600));
+    }
 
+    
     //uso sensor acelerometro para reenvio de mail
     @Override
     public void onSensorChanged(SensorEvent event) {
