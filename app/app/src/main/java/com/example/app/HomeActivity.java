@@ -11,11 +11,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.app.models.Menu;
+
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     ImageView btnExit;
     Button btnDesc;
     Button btnMenu;
+    Button btnRes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         btnExit = findViewById(R.id.btnExit);
         btnDesc = findViewById(R.id.btnDesc);
         btnMenu = findViewById(R.id.btnMenu);
-        
+        btnRes = findViewById(R.id.btnRes);
 
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +60,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        btnRes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this, ReservationActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     private void checkBattery() {
@@ -67,4 +81,5 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
 }

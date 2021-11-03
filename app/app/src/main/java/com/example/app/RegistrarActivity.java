@@ -31,7 +31,9 @@ public class RegistrarActivity extends AppCompatActivity {
     EditText name;
     EditText lastName;
     EditText dni;
+
     Button registrar;
+
     User user;
     String randomCode = "";
     EmailService _mailService = new EmailService();

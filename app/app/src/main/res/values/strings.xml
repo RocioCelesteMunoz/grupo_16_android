@@ -27,6 +27,7 @@
 
     <string name="lblDescription">Desde esta pantalla podrás ver tus datos personales</string>
     <string name="lblMenu">Nuestro Menú</string>
+    <string name="lblDesc">Nuestros Descuentos</string>
 
     <string name="TwoForOne">Utilizando el siguiente código de descuento llevas 2 menús y pagas 1 solo.</string>
     <string name="cod2x1">Tu codigo es:</string>
@@ -56,6 +57,35 @@
 
     <string name="tlt_pizza_tres"> Napolitana con Jamón - 1600.-</string>
     <string name="body_pizza_tres"> Pizza grande de Muzzarella con Albahaca, tomate fresco, Jamón, ajo y orégano. (8 Porciones) </string>
+
+    <string name="hora_inicio"> Hora inicial </string>
+    <string name="hora_fin"> Hora final </string>
+
+    <string name="cupon"> Ingresá Cupón de descuento </string>
+
+    <string name="app">Cantidad</string>
+    <string name="hora_final">Hora final</string>
+    <string name="hora_inicial">Hora inicial</string>
+
+    <string name="generarReserva">Generar reserva</string>
+    <string name="volver">Volver al Home</string>
+    <string name="lblPago">El monto a abonar:</string>
+    <string name="lblRandomCode">El Código generado es:</string>
+    <string name="lblConfirm">Tu reserva fue realizada con éxito. Se ha generado un código de verificacion que deberás mostrar en el mostrador para retirar tu pedido.</string>
+
+
+    <string name="seleccion_el_rango_de_horario_en_el_que_vas_a_retirar_tu_pedido">Seleccioná el rango de horario en el que vas a retirar tu pedido (Rango de 30\')</string>
+    <string-array name="Cantidad">
+        <item>-</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
 
 
 </resources>
