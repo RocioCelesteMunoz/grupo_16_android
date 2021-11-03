@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">app</string>
+    <string name="login">Login</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="registrar_cuenta">Registrar Usuario</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="dni">DNI</string>
+
+    <string name="invalid_mail"> Ingrese un mail válido</string>
+    <string name="invalid_password"> Ingrese una contraseña mayor a 6 dígitos</string>
+    <string name="lblResendVerificationCode">En caso de no haber recibido \nel código haga click en reenviar o mueva el telefono de un lado a otro</string>
+    <string name="ingresar_c_digo">Ingresar Código</string>
+    <string name="reenviar">Reenviar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="lblEnvioMail">Se ha enviado un código de autenticacion al mail registrado</string>
+    <string name="lblInfoHome">¡Hola! MBooking es una app para que puedas pre-ordenar tu comida para llevar y seleccionar cupones de promoción.  </string>
+
+    <string name="credentialsError">El usuario o contraseña ingresado es incorrecto.</string>
+    <string name="requestError">Se produjo un error al enviar la petición</string>
+
+    <string name="cupones">Cupones de decuento</string>
+    <string name="comida">Nuestro Menú</string>
+    <string name="reserva">Realiza tu reserva</string>
+
+    <string name="lblDescription">Desde esta pantalla podrás ver tus datos personales</string>
+    <string name="lblMenu">Nuestro Menú</string>
+    <string name="lblDesc">Nuestros Descuentos</string>
+
+    <string name="TwoForOne">Utilizando el siguiente código de descuento llevas 2 menús y pagas 1 solo.</string>
+    <string name="cod2x1">Tu codigo es:</string>
+
+    <string name="desc_20">Utilizando el siguiente código de descuento obtenes un 20% de descuento. (Para compras mayores a $2500) </string>
+
+    <string name="bodyRetiro"><![CDATA[ Si tu menú no esta listo para retirar posterior a 30\' del pedido, te llevas una Coca Cola de 2 &#188; Lts.]]></string>
+    <string name="solicitar_caja"> (*)Es necesario que al momento de solicitar la promo, muestres tu celu con la hora de solicitud.</string>
+
+    <string name="titl_hamburguesa"> Hamburguesa Cheese 780.-</string>
+    <string name="body_hamburguesa"> Doble carne (180 grs de carne por medallón), doble cheddar, cebolla crispy. Con porción de papas y Coca Cola de 750ml.</string>
+
+    <string name="titl_hamburguesa_simple"> Hamburguesa Classic - $580.-</string>
+    <string name="body_hamburguesa_simple"> Carne (180 grs de carne), doble cheddar, tomate, lechuga. Con porción de papas y Coca Cola de 750ml.</string>
+
+    <string name="tlt_tabla_uno"> Tabla Mediterranea - $1200.-</string>
+    <string name="body_tabla_uno"> Bastones de queso, Aros de cebolla, mini salchicha, papas fritas, aceitunas, bolas de papa (Comen 2).</string>
+
+    <string name="tlt_tabla_dos"> Tabla tradicional - 2400.-.</string>
+    <string name="body_tabla_dos"> Jamón cocido, Jamón crudo, queso brie, queso cheddar, queso mar del plata, roquefort, aceitunas, longanisa (Comen 4).</string>
+
+    <string name="tlt_pizza_uno"> Muzzarella - 850.-.</string>
+    <string name="body_pizza_uno"> Pizza grande de Muzzarella. (8 Porciones) </string>
+
+    <string name="tlt_pizza_dos"> Jamón y morrón - 1200.-.</string>
+    <string name="body_pizza_dos"> Pizza grande de Muzzarella con Jamón y morrón. (8 Porciones) </string>
+
+    <string name="tlt_pizza_tres"> Napolitana con Jamón - 1600.-</string>
+    <string name="body_pizza_tres"> Pizza grande de Muzzarella con Albahaca, tomate fresco, Jamón, ajo y orégano. (8 Porciones) </string>
+
+    <string name="hora_inicio"> Hora inicial </string>
+    <string name="hora_fin"> Hora final </string>
+
+    <string name="cupon"> Ingresá Cupón de descuento </string>
+
+    <string name="app">Cantidad</string>
+    <string name="hora_final">Hora final</string>
+    <string name="hora_inicial">Hora inicial</string>
+
+    <string name="generarReserva">Generar reserva</string>
+    <string name="volver">Volver al Home</string>
+    <string name="lblPago">El monto a abonar:</string>
+    <string name="lblRandomCode">El Código generado es:</string>
+    <string name="lblConfirm">Tu reserva fue realizada con éxito. Se ha generado un código de verificacion que deberás mostrar en el mostrador para retirar tu pedido.</string>
+
+
+    <string name="seleccion_el_rango_de_horario_en_el_que_vas_a_retirar_tu_pedido">Seleccioná el rango de horario en el que vas a retirar tu pedido (Rango de 30\')</string>
+    <string-array name="Cantidad">
+        <item>-</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+
+</resources>
