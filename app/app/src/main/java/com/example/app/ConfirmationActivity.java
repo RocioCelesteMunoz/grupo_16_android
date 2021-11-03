@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +15,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     EditText lblMonto;
     EditText lblCode;
 
-    Button salir;
+    ImageView btnExit;
     Button btnVolver;
 
     @Override
@@ -24,6 +25,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation);
 
         btnVolver = findViewById(R.id.btnVolver);
+        btnExit = findViewById(R.id.btnExit);
 
         lblMonto = findViewById(R.id.lblMonto);
         lblCode = findViewById(R.id.lblCode);
@@ -46,7 +48,7 @@ public class ConfirmationActivity extends AppCompatActivity {
             }
         });
 
-        salir.setOnClickListener(new View.OnClickListener() {
+        btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ConfirmationActivity.this, HomeActivity.class);
