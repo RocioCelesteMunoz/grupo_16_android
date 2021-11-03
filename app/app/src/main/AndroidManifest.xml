@@ -30,6 +30,8 @@
         <activity android:name="com.example.app.TwoFactorActivity"></activity>
         <activity android:name="com.example.app.DescActivity"></activity>
         <activity android:name="com.example.app.MenuActivity"></activity>
+        <activity android:name="com.example.app.ReservationActivity"></activity>
+        <activity android:name="com.example.app.ConfirmationActivity"></activity>
         <activity android:name="com.example.app.HomeActivity"
             tools:ignore="Instantiatable"></activity>
     </application>
