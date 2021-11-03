@@ -35,7 +35,7 @@ public class RetrofitClient {
                                 Request.Builder requestBuilder = original.newBuilder()
                                         .addHeader("Content-Type", "application/json");
 
-                                if (!session.getStringData("TOKEN").isEmpty() & !original.url().toString().endsWith("login") & !original.url().toString().endsWith("refresh")) {
+                                if (!session.getStringData("TOKEN").isEmpty() & urlNeedsToken(original.url().toString())) {
                                     requestBuilder.addHeader("Authorization", "Bearer " + session.getStringData("TOKEN"));
                                 }
 
@@ -68,5 +68,12 @@ public class RetrofitClient {
 
     public Api getApi() {
         return retrofit.create(Api.class);
+    }
+
+    private boolean urlNeedsToken(String url) {
+        if (!url.endsWith("login") & !url.endsWith("refresh") & !url.endsWith("register")) {
+            return true;
+        }
+        return false;
     }
 }

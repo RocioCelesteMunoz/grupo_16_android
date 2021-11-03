@@ -14,10 +14,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.app.models.Menu;
 import com.example.app.services.EmailService;
 import com.example.app.utils.SessionManager;
 
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static com.example.app.ReservationActivity.COMBO_CINCO;
+import static com.example.app.ReservationActivity.COMBO_CUATRO;
+import static com.example.app.ReservationActivity.COMBO_DOS;
+import static com.example.app.ReservationActivity.COMBO_SEIS;
+import static com.example.app.ReservationActivity.COMBO_SIETE;
+import static com.example.app.ReservationActivity.COMBO_TRES;
+import static com.example.app.ReservationActivity.COMBO_UNO;
+
 
 
 public class TwoFactorActivity extends AppCompatActivity implements SensorEventListener {
@@ -25,6 +36,8 @@ public class TwoFactorActivity extends AppCompatActivity implements SensorEventL
     private long lastUpdate = 0;
     private float lastX, lastY, lastZ;
     private static final int UMBRAL_SHAKE = 200;
+
+    public static HashMap<Integer,Menu> menus = new HashMap<Integer,Menu>();
 
     Button buttonAuth;
     Button buttonReenviar;
@@ -81,6 +94,7 @@ public class TwoFactorActivity extends AppCompatActivity implements SensorEventL
 
                 if(tokenAuth.equals(randomCode)) {
                     Intent intent = new Intent(TwoFactorActivity.this, HomeActivity.class);
+                    inicializarMenus();
                     startActivity(intent);
                     finish();
                 }else{
@@ -93,6 +107,16 @@ public class TwoFactorActivity extends AppCompatActivity implements SensorEventL
 
 
     }
+
+    public void inicializarMenus(){
+
+        menus.put(COMBO_UNO, new Menu(1,"Hamburguesa Cheese", 780));
+        menus.put(COMBO_DOS, new Menu(2,"Hamburguesa Classic", 580));
+        menus.put(COMBO_TRES, new Menu(3,"Tabla Mediterranea", 1200));
+        menus.put(COMBO_CUATRO, new Menu(4,"Tabla Tradicional", 2400));
+        menus.put(COMBO_CINCO, new Menu(5,"Pizza Muzzarella", 850));
+        menus.put(COMBO_SEIS, new Menu(6,"Pizza Jamón y Morrón", 1200));
+        menus.put(COMBO_SIETE, new Menu(7,"Pizza Napolitana con Jamón", 1600));
 
     //uso sensor acelerometro para reenvio de mail
     @Override
@@ -156,6 +180,9 @@ public class TwoFactorActivity extends AppCompatActivity implements SensorEventL
 
     protected void stopSensors() {
         mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+
     }
 
 }
+
+

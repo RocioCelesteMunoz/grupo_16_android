@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     Button btnToRegister;
     EditText txtUser;
     EditText txtPasswordLogin;
-    EditText textError;
 
     String randomCode = "";
     EmailService _mailService = new EmailService();
@@ -50,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         txtUser = findViewById(R.id.txtUser);
         txtPasswordLogin = findViewById(R.id.txtPasswordLogin);
-        textError = findViewById(R.id.textError);
 
         btnToRegister = findViewById(R.id.button_registrar);
         btnLogin = findViewById(R.id.button_login);
@@ -64,12 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(LoginActivity.this,RegistrarActivity.class);
                 startActivity(i);
-                try {
+                /**try {
                     Response<EventRegisterResponse> resp = RetrofitClient.getInstance(getApplicationContext()).getApi().registerEvent("PROD", "SENSOR", "DESCRIPTION").execute();
                     EventRegisterResponse a = resp.body();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }**/
             }
         });
 
@@ -95,8 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                     txtUser.requestFocus();
                     return;
                 }
-
-                textError.setText("");
 
                 Call<LoginResponse> call = RetrofitClient.getInstance(getApplicationContext()).getApi().userLogin(usuario,password);
 
