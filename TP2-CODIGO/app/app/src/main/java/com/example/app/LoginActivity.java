@@ -62,12 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(LoginActivity.this,RegistrarActivity.class);
                 startActivity(i);
-                /**try {
-                    Response<EventRegisterResponse> resp = RetrofitClient.getInstance(getApplicationContext()).getApi().registerEvent("PROD", "SENSOR", "DESCRIPTION").execute();
-                    EventRegisterResponse a = resp.body();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }**/
             }
         });
 
@@ -104,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                             LoginResponse resp = response.body();
                             randomCode = _mailService.sendEmail(txtUser.getText().toString(), LoginActivity.this);
                             setRefreshTime();
+
                             redirectToTwoFactorAuth(resp);
                             Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_LONG).show();
                         } else {
@@ -127,13 +122,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void redirectToTwoFactorAuth(LoginResponse response) {
+    public void redirectToTwoFactorAuth(LoginResponse response) {\
+        String usuario = txtUser.getText().toString();
         String token = response.getToken();
         String tokenRefresh = response.getToken_refresh();
         session.saveStringData("TOKEN", token);
         session.saveStringData("TOKEN_REFRESH", tokenRefresh);
+        session.saveStringData("USUARIO",usuario);
         Intent intent = new Intent(LoginActivity.this, TwoFactorActivity.class);
-        intent.putExtra("email",txtUser.getText().toString());
+        intent.putExtra("email",usuario);
         intent.putExtra("token",token);
         intent.putExtra("tokenRefresh",tokenRefresh);
         intent.putExtra("tokenAccess",randomCode);

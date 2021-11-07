@@ -101,7 +101,7 @@ public class RegistrarActivity extends AppCompatActivity {
                 Call<RegisterResponse> call = RetrofitClient
                         .getInstance(getApplicationContext())
                         .getApi()
-                        .singUp("TEST",nom,lastn,id,mail,pass,3900,16);
+                        .singUp("PROD",nom,lastn,id,mail,pass,3900,16);
 
                 call.enqueue(new Callback<RegisterResponse>() {
                     @Override
