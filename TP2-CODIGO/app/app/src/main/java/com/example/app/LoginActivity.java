@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void redirectToTwoFactorAuth(LoginResponse response) {\
+    public void redirectToTwoFactorAuth(LoginResponse response) {
         String usuario = txtUser.getText().toString();
         String token = response.getToken();
         String tokenRefresh = response.getToken_refresh();
